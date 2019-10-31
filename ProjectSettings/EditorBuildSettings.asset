@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/2DBuild.unity
+    guid: ff02c5168f1eb3d4db51c386d38d607b
+  - enabled: 1
+    path: Assets/Scenes/Input.unity
+    guid: e1d8432eb97db6947ab66b386f639c5e
+  - enabled: 1
+    path: Assets/Scenes/colorSelection.unity
+    guid: d5226767d33cac84fbb76b44875fb2a0
+  m_configObjects: {}
