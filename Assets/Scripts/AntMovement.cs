@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class TileData
@@ -13,7 +14,6 @@ public class TileData
     public int colorValue;
     public MeshRenderer tileRenderer;
 }
-
 
 public class AntMovement : MonoBehaviour {
 
@@ -31,6 +31,8 @@ public class AntMovement : MonoBehaviour {
 
     public GameObject tileTemplate;
 
+    public Text inputText;
+
     private string instructions;
     private int instLength;
 
@@ -38,41 +40,78 @@ public class AntMovement : MonoBehaviour {
 
     private float sliderValue = 0;
 
+    public Material[] Colors;
+
     Dictionary<Vector2, TileData> tileDict = new Dictionary<Vector2, TileData>();
+
+    private bool started = false;
+
 	// Use this for initialization
 	void Start () {
         maxDistance = 0;
-        GameObject newTile = GameObject.Instantiate(tileTemplate);
-        newTile.transform.position = Vector3.zero;
+       // GameObject newTile = GameObject.Instantiate(tileTemplate);
+       // newTile.transform.position = Vector3.zero;
+        //tileDict.Add(Vector2.zero, new TileData(0, newTile.GetComponent<MeshRenderer>()));
 
         finished = false;
-        instructions = GameData.Instructions;
-        instLength = instructions.Length;
-
-        StartCoroutine(startDelay());
-
-  
-	}
-
-    IEnumerator startDelay()
-    {
-        yield return new WaitForSeconds(1);
 
         board = GameObject.Find("Board");
 
-    
+
         transform.position = new Vector3(x, .5f, y);
-        
+
 
         antDirection = Vector2.up;
 
+
     }
+
+    public void StartWalk()
+    {
+        string inputInstruct = inputText.text;
+        string parsedInstructions = string.Empty;
+
+        for(int i = 0; i < inputInstruct.Length; i++)
+        {
+            switch(inputInstruct[i])
+            {
+                case 'L':
+                    parsedInstructions += "L";
+                    break;
+                case 'l':
+                    parsedInstructions += "L";
+                    break;
+                case 'R':
+                    parsedInstructions += "R";
+                    break;
+                case 'r':
+                    parsedInstructions += "R";
+                    break;
+                default:
+                    break;
+                
+            }
+        }
+
+        instructions = parsedInstructions;
+        Debug.Log(instructions);
+        Debug.Log(instructions[0]);
+        inputText.text = parsedInstructions;
+        instLength = parsedInstructions.Length;
+
+        started = true;
+
+    }
+
+
+    
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(started && !finished)
+        {
             MoveAnt();
-        
+        }        
 	}
 
     void MoveAnt()
@@ -113,7 +152,7 @@ public class AntMovement : MonoBehaviour {
     void flipTile()
     {
         tileDict[new Vector2(x, y)].colorValue = (tileDict[new Vector2(x, y)].colorValue + 1) % instLength;
-        tileDict[new Vector2(x, y)].tileRenderer.material = GameData.Colors[tileDict[new Vector2(x, y)].colorValue];
+        tileDict[new Vector2(x, y)].tileRenderer.material = Colors[tileDict[new Vector2(x, y)].colorValue % Colors.Length];
     }
 
     void RotateRight()
@@ -141,12 +180,16 @@ public class AntMovement : MonoBehaviour {
 
         if(!tileDict.ContainsKey(tileKey))
         {
-            
+            Debug.Log("Add Tile");   
             GameObject newTile = GameObject.Instantiate(tileTemplate);
             newTile.transform.position = new Vector3(x, 0, y);
             tileDict.Add(tileKey, new TileData(0, newTile.GetComponent<MeshRenderer>()));
         }
-        if (instructions[tileDict[new Vector2(x, y)].colorValue] == 'R')
+        
+        int index = tileDict[tileKey].colorValue;
+        Debug.Log("Index is: " + index);
+        Debug.Log("Instructions are: " + instructions);
+        if (instructions[index] == 'R')
         {
             return true;
         }
