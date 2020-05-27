@@ -102,6 +102,19 @@ public class AntMovement : MonoBehaviour {
 
     }
 
+    public void ResetWalk()
+    {
+        foreach(Vector2 key in tileDict.Keys)
+        {
+            Destroy(tileDict[key].tileRenderer.gameObject);
+        }
+        tileDict.Clear();
+        transform.position = new Vector3(0, .5f, 0);
+
+        started = false;
+        inputText.text = string.Empty;
+    }
+
 
     
 	
