@@ -17,10 +17,10 @@ public class TileData
 
 public class AntMovement : MonoBehaviour {
 
-    private GameObject board;
+
     public Vector2 antDirection;
     private int x = 0, y = 0;
-    public int boardSize;
+
 
     private float maxDistance;
 
@@ -55,8 +55,7 @@ public class AntMovement : MonoBehaviour {
 
         finished = false;
 
-        board = GameObject.Find("Board");
-
+      
 
         transform.position = new Vector3(x, .5f, y);
 
@@ -116,7 +115,7 @@ public class AntMovement : MonoBehaviour {
 
     void MoveAnt()
     {
-        for (int i = 0; i < 1 + maxSpeed * Mathf.Pow(sliderValue, 3); i++)
+        for (int i = 0; i < 1 + maxSpeed * sliderValue; i++)
         {
             //check tile returns true if the the current tile is in the "too-right" state
             //if the current tile is not yet in the dictionary, checkTile adds it
@@ -179,16 +178,16 @@ public class AntMovement : MonoBehaviour {
         Vector2 tileKey = new Vector2(x, y);
 
         if(!tileDict.ContainsKey(tileKey))
-        {
-            Debug.Log("Add Tile");   
-            GameObject newTile = GameObject.Instantiate(tileTemplate);
+        {            
+            GameObject newTile = new GameObject("Tile: " + tileKey.x + "," + tileKey.y);
             newTile.transform.position = new Vector3(x, 0, y);
+            newTile.AddComponent<MeshRenderer>();
+            newTile.AddComponent<TileCreator>();
             tileDict.Add(tileKey, new TileData(0, newTile.GetComponent<MeshRenderer>()));
         }
         
         int index = tileDict[tileKey].colorValue;
-        Debug.Log("Index is: " + index);
-        Debug.Log("Instructions are: " + instructions);
+ 
         if (instructions[index] == 'R')
         {
             return true;

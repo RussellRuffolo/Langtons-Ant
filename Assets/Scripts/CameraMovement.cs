@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour {
     int boardSize;
     public GameObject ant;
 
-    private float cameraScale = 0;
+    private float cameraScale = 1;
     Vector3 targetPosition;
 	// Use this for initialization
 	void Start () {
