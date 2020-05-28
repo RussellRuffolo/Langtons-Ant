@@ -152,8 +152,7 @@ public class AntMovement : MonoBehaviour {
 
             if (distance > maxDistance)
             {
-                maxDistance = distance;
-                GameData.boardSize = (int)maxDistance;
+                maxDistance = distance;               
             }
 
             

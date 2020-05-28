@@ -11,13 +11,13 @@ public class CameraMovement : MonoBehaviour {
     Vector3 targetPosition;
 	// Use this for initialization
 	void Start () {
-        boardSize = GameData.boardSize;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
          targetPosition = new Vector3(ant.transform.position.x * (1 - cameraScale), 5, ant.transform.position.y * (1 - cameraScale));
-        GetComponent<Camera>().orthographicSize =  4 + cameraScale * GameData.boardSize;
+        //GetComponent<Camera>().orthographicSize =  4 + cameraScale * GameData.boardSize;
 	}
 
     private void FixedUpdate()
