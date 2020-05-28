@@ -46,6 +46,8 @@ public class AntMovement : MonoBehaviour {
 
     private bool started = false;
 
+    private CameraMovement camMovement;
+
 	// Use this for initialization
 	void Start () {
         maxDistance = 0;
@@ -62,6 +64,7 @@ public class AntMovement : MonoBehaviour {
 
         antDirection = Vector2.up;
 
+        camMovement = Camera.main.GetComponent<CameraMovement>();
 
     }
 
@@ -130,7 +133,7 @@ public class AntMovement : MonoBehaviour {
     {
         for (int i = 0; i < 1 + maxSpeed * sliderValue; i++)
         {
-            //check tile returns true if the the current tile is in the "too-right" state
+            //check tile returns true if the the current tile is in the "to-right" state
             //if the current tile is not yet in the dictionary, checkTile adds it
             if (CheckTile())
             {
@@ -152,7 +155,8 @@ public class AntMovement : MonoBehaviour {
 
             if (distance > maxDistance)
             {
-                maxDistance = distance;               
+                maxDistance = distance;
+                camMovement.boardSize = maxDistance;
             }
 
             

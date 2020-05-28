@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
 
-    int boardSize;
+    public float boardSize = 1;
     public GameObject ant;
 
     private float cameraScale = 1;
     Vector3 targetPosition;
+
+    
+
 	// Use this for initialization
 	void Start () {
 
@@ -17,7 +20,7 @@ public class CameraMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
          targetPosition = new Vector3(ant.transform.position.x * (1 - cameraScale), 5, ant.transform.position.y * (1 - cameraScale));
-        //GetComponent<Camera>().orthographicSize =  4 + cameraScale * GameData.boardSize;
+        GetComponent<Camera>().orthographicSize =  4 + cameraScale * boardSize;
 	}
 
     private void FixedUpdate()

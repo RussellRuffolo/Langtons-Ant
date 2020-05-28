@@ -39,18 +39,13 @@ public class TileCreator : MonoBehaviour
         new Vector2(1, 1),
         new Vector2(0, 1)
     };
-
-
-
-
-    MeshFilter mFilter;
-   
+ 
 
     // Start is called before the first frame update
     private void Start()
     {
         //The mesh filter we will apply our mesh to
-        mFilter = GetComponent<MeshFilter>();    
+        var mFilter = GetComponent<MeshFilter>();    
 
         //The mesh we are creating
         var mesh = new Mesh();
